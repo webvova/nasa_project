@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
 
-const DropDown = ({ label, id, options, onClick }) => {
+const DropDown = ({ label, id, options, onClick, required, className }) => {
   const [state, setState] = useState('');
 
   const handleChange = (event) => {
@@ -19,6 +19,8 @@ const DropDown = ({ label, id, options, onClick }) => {
     <FormControl>
       <InputLabel id="demo-simple-select-label">{label}</InputLabel>
       <Select
+        className={className}
+        required={required}
         value={state}
         onChange={handleChange}
         id={id}
