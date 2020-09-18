@@ -5,33 +5,27 @@ import DropDown from "./components/DropDown";
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import Grid from '@material-ui/core/Grid';
-import axios from "axios";
+import { Pagination } from '@material-ui/lab';
+
 import "./App.css";
+
+import axios from "axios";
+import _ from "lodash";
+
 
 const API_KEY = "WNzh8sYZHvSXUTVYwmPKR3hwtOySWlfsM8I3gZ1a";
 const API = "https://api.nasa.gov/mars-photos/api/v1/rovers/";
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
 
-
-export default function NativeSelects() {
-  const classes = useStyles();
-
+const App = () => {
   const [solValue, setSolValue] = useState(null);
   const [cameraValue, setCameraValue] = useState(null);
   const [roverValue, setRoverValue] = useState(null);
-  const [pageValue, setPageValue] = useState(null);
+  const [page, setPageValue] = useState(null);
   const [showNoPhotosError, setShowNoPhotosError] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
   const [photos, setPhotos] = useState([]);
+  const [photosToRender, setPhotosToRender] = useState([]);
 
 
   useEffect(() => {
@@ -41,12 +35,32 @@ export default function NativeSelects() {
         if (photosData.length > 0) {
           setShowNoPhotosError(false)
           setPhotos(photosData);
+          setShowNoPhotosError(false);
         } else if (photosData.length === 0) {
           setShowNoPhotosError(true);
         }
-        setButtonPressed(true);
+        setButtonPressed(false);
       })
   }, [buttonPressed]);
+
+  useEffect(() => {
+    page && axios.get(`${API}${roverValue}/photos?sol=${solValue}&camera=${cameraValue}&page=${page}&api_key=${API_KEY}`)
+      .then(res => {
+        const photosData = res.data.photos;
+        if (photosData.length > 0) {
+          setShowNoPhotosError(false)
+          setPhotosToRender(photosData);
+          setShowNoPhotosError(false);
+        } else if (photosData.length === 0) {
+          setShowNoPhotosError(true);
+        }
+        setButtonPressed(false);
+      })
+  }, [page]);
+
+  useEffect(() => {
+    if (photos) setPhotosToRender(photos.slice(0, 24))
+  }, [photos]);
 
 
   const roverOptions = [
@@ -77,7 +91,7 @@ export default function NativeSelects() {
       <div className="welcome">Welcome to Mars photo finder!</div>
       <div className="hint-text">Please select options below to begin:</div>
       <form onSubmit={(e) => onSubmit(e)}>
-        <FormControl className={classes.formControl}>
+        <FormControl>
           <DropDown
             required
             className="drop-down"
@@ -112,10 +126,10 @@ export default function NativeSelects() {
 
       <div>
         {
-          (typeof photos !== 'undefined' && photos.length > 0) &&
-          <Grid container spacing={3}>
+          (!_.isEmpty(photosToRender)) &&
+          <Grid container spacing={4}>
             {
-              photos.map(({img_src}, index) => {
+              photosToRender.map(({img_src}, index) => {
                 return (
                   <img className="mars-image" key={index} src={img_src} alt="image of mars rover"/>
                 );
@@ -128,6 +142,19 @@ export default function NativeSelects() {
           </div>
         }
       </div>
+
+      <div className="pagination-wrapper">
+        {
+          !_.isEmpty(photosToRender) && <Pagination
+            page={page}
+            count={!_.isEmpty(photos) && Math.ceil(photos.length / 25)}
+            onChange={(event, newPage) => setPageValue(newPage)}
+          />
+        }
+      </div>
     </div>
   );
-}
+};
+
+
+export default App;

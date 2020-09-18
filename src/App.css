@@ -40,3 +40,7 @@
   max-height: 250px;
   margin: 20px;
 }
+
+.pagination-wrapper {
+  margin: 30px 0;
+}
