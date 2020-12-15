@@ -1,0 +1,23 @@
+ul li {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color:#3366ff;
+}
+
+.link {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 40px;
+    text-decoration: none;
+    transition: color 0.2s linear;
+    font-size: 25px;
+}
