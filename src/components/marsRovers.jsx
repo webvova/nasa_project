@@ -10,7 +10,6 @@ import "./mars-rovers.css";
 
 import axios from "axios";
 import _ from "lodash";
-import {Spinner} from "react-bootstrap";
 
 
 const API_KEY = "WNzh8sYZHvSXUTVYwmPKR3hwtOySWlfsM8I3gZ1a";
@@ -18,7 +17,6 @@ const API = "https://api.nasa.gov/mars-photos/api/v1/rovers/";
 
 
 const MarsRovers = () => {
-  const [loading, setLoading] = useState(false);
   const [solValue, setSolValue] = useState(null);
   const [cameraValue, setCameraValue] = useState(null);
   const [roverValue, setRoverValue] = useState(null);
@@ -28,7 +26,6 @@ const MarsRovers = () => {
   const [photos, setPhotos] = useState([]);
   const [photosToRender, setPhotosToRender] = useState([]);
 
-  //add loading
 
   useEffect(() => {
     buttonPressed && axios.get(`${API}${roverValue}/photos?sol=${solValue}&camera=${cameraValue}&api_key=${API_KEY}`)
@@ -42,7 +39,6 @@ const MarsRovers = () => {
           setShowNoPhotosError(true);
         }
         setButtonPressed(false);
-        // setLoading(false);
       })
   }, [buttonPressed]);
 
@@ -58,7 +54,6 @@ const MarsRovers = () => {
           setShowNoPhotosError(true);
         }
         setButtonPressed(false);
-        // setLoading(false);
       })
   }, [page]);
 
@@ -88,17 +83,6 @@ const MarsRovers = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     setButtonPressed(true)
-  }
-
-  if (loading === true) {
-    return  (
-      <div className='loading'>
-        <div className="loading-text">Content is loading, please wait...</div>
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
-      </div>
-    )
   }
 
   return (

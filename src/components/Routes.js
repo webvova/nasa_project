@@ -13,7 +13,6 @@ export default function Routes() {
       <NavigationMenu />
       <Switch>
         <Route path="/apod" component={APOD} />
-        {/*<Route path="/epic" component={EPIC} />*/}
         <Route path="/mars-rovers" component={MarsRovers} />
         <Route path="/nasa-library" component={NasaLibrary} />
         <Route path='/default' render={() => <Redirect to= "/" />} />

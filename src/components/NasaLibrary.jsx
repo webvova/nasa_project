@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import "./nasa-library.css";
+import Grid from '@material-ui/core/Grid';
 
 import { Spinner } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,13 +26,11 @@ const Apod = () => {
       setLoading(true)
       axios.get(`${API}/search?q=${searchText}`)
         .then(res => {
-          data && setData(res.data);
-          data && setLoading(false)
+          res.data && setData(res.data.collection.items);
+          res.data && setLoading(false)
         })
     }
   }, [searchText]);
-
-  console.log(searchText, data)
 
   // Spinner
   const renderSpinner = () => (
@@ -43,6 +42,24 @@ const Apod = () => {
     </div>
   )
 
+  const renderContent = () => {
+    return (
+      <Grid container spacing={4}>
+        {
+          data?.map(({ links }) => {
+
+
+            return links?.map(({ href }) => {
+              return (
+                <img className="mars-image" src={href} alt='img' />
+              )
+            })
+          })
+        }
+      </Grid>
+    )
+  }
+
   return (
     <div className="apod">
       <h1 className="apod-title">NASA Image & Video Library</h1>
@@ -53,6 +70,7 @@ const Apod = () => {
         style={{ width: 800, margin: '0 10px' }}
       />
       {loading && renderSpinner()}
+      {data && <div className="nasa-library-wrapper">{renderContent()}</div>}
     </div>
   );
 };

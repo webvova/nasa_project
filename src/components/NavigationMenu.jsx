@@ -8,10 +8,6 @@ const routes = [
     path: '/apod',
     title: 'APOD'
   },
-  // {
-  //   path: '/epic',
-  //   title: 'EPIC'
-  // },
   {
     path: '/mars-rovers',
     title: 'Mars Rovers Photos'
