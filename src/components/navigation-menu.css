@@ -1,3 +1,6 @@
+ul {
+    margin: 30px 0 10px 0;
+}
 ul li {
     list-style: none;
     display: flex;
@@ -20,4 +23,13 @@ a:hover {
     text-decoration: none;
     transition: color 0.2s linear;
     font-size: 25px;
+}
+
+.navigation-menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.navigation-menu img {
+    width: 100px;
 }

@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Grid from '@material-ui/core/Grid';
 import { Pagination } from '@material-ui/lab';
 
-import "../App.css";
+import "./mars-rovers.css";
 
 import axios from "axios";
 import _ from "lodash";
@@ -86,15 +86,15 @@ const MarsRovers = () => {
   }
 
   return (
-    <div className="app">
-      <div className="welcome">Here you can search photos done by NASA's Curiosity, Opportunity, and Spirit rovers on Mars!</div>
-      <div className="hint-text">Please select options below to begin:</div>
+    <div className="mars-rovers">
+      <h1 className='mars-rovers-title'>Mars Rovers Photos</h1>
+      <div className="mars-rovers-welcome">Search photos done by NASA's Curiosity, Opportunity, and Spirit rovers on Mars!</div>
       <form onSubmit={(e) => onSubmit(e)}>
         <FormControl>
           <DropDown
             required
             className="drop-down"
-            label="Rover"
+            label="Choose Rover"
             id="rover"
             options={roverOptions}
             onClick={setRoverValue}
@@ -102,7 +102,7 @@ const MarsRovers = () => {
           <DropDown
             required
             className="drop-down"
-            label="Camera"
+            label="Choose Camera"
             id="age"
             options={cameraOptions}
             onClick={setCameraValue}
@@ -110,7 +110,7 @@ const MarsRovers = () => {
           <TextField
             required
             id="standard-number"
-            label="Sol"
+            label="Martian day"
             type="number"
             className="text-field"
             InputLabelProps={{

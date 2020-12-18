@@ -3,7 +3,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 50px;
 }
 
 .apod-title {
@@ -38,6 +37,7 @@
 .apod-data-title {
     font-size: 35px;
     text-decoration: underline;
+    margin-bottom: 20px;
 }
 
 .apod-data-explanation {
@@ -46,7 +46,7 @@
     text-align: justify;
     color: #333;
     letter-spacing: 1px;
-    background: wheat;
+    background: #F8F8F8;
 }
 
 .loading {

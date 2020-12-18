@@ -51,11 +51,11 @@ const Apod = () => {
     return (
       <>
         <div className="apod-data-title">{title}</div>
+        <div className="apod-data-media">{media}</div>
         <div className="apod-data-date">
           <b>Date:</b>
           <i>{date}</i>
         </div>
-        <div className="apod-data-media">{media}</div>
         <div className="apod-data-explanation">{explanation}</div>
       </>
     )
