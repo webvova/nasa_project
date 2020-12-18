@@ -1,7 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './navigation-menu.css'
+
 import nasaImage from '../nasa.png'
+
 
 const routes = [
   {
@@ -10,13 +12,14 @@ const routes = [
   },
   {
     path: '/mars-rovers',
-    title: 'Mars Rovers Photos'
+    title: 'Mars Rovers'
   },
   {
     path: '/nasa-library',
     title: 'NASA Library'
   },
 ]
+
 
 const activeLinkStyles = { color: '#4287f5', textDecoration: 'underline' }
 
